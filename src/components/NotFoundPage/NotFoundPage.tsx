@@ -1,18 +1,19 @@
+import MainLayout from 'layouts/MainLayout';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import routes from 'routes';
 
-interface ErrorPageProps {}
+interface NotFoundPageProps {}
 
-const ErrorPage: React.FC<ErrorPageProps> = () => {
+const NotFoundPage: React.FC<NotFoundPageProps> = () => {
   return (
-    <div>
+    <MainLayout>
       <h2>Nothing to see here!</h2>
       <p>
         <Link to={routes.home}>Go to the home page</Link>
       </p>
-    </div>
+    </MainLayout>
   );
 };
 
-export default ErrorPage;
+export default NotFoundPage;

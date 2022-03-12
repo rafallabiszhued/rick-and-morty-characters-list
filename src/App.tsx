@@ -1,21 +1,24 @@
-import ErrorPage from 'components/ErrorPage';
-import Home from 'components/Home';
+import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
 import { queryClient } from 'config/services';
-import MainLayout from 'layouts/MainLayout';
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { QueryClientProvider } from 'react-query';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import routes from 'routes';
+
+const HomePage = lazy(() => import('components/Home'));
+const NotFoundPage = lazy(() => import('components/NotFoundPage'));
 
 const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route path={routes.home} element={<MainLayout />}>
-          <Route index element={<Home />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Route>
-      </Routes>
+      <Router>
+        <Suspense fallback={<LoadingIndicator isLoading />}>
+          <Routes>
+            <Route path={routes.home} element={<HomePage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+      </Router>
     </QueryClientProvider>
   );
 };
