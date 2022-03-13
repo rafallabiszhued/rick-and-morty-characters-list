@@ -1,7 +1,8 @@
+import Alert from 'common/Alert';
 import ErrorAlert from 'common/ErrorAlert/ErrorAlert';
 import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
 import Card from 'components/Home/components/Card';
-import StatusFilter from 'components/Home/components/StatusFilter';
+import CharacterStatusFilters from 'components/Home/components/CharacterStatusFilters';
 import { ICharacter } from 'components/Home/models/home.models';
 import homeService from 'components/Home/services/home.service';
 import { useContextState } from 'contexts/GlobalContext';
@@ -72,18 +73,14 @@ const Home: React.FC<HomeProps> = () => {
 
   return (
     <MainLayout>
-      <StatusFilter />
+      <CharacterStatusFilters />
       <ErrorAlert error={error} isError={isError} />
       <InfiniteScroll
         dataLength={fetchCharacters.length}
         next={fetchMoreData}
         hasMore={hasMore}
         loader={<LoadingIndicator isLoading={!isError} />}
-        endMessage={
-          <p className="text-center">
-            <b>All items loaded!</b>
-          </p>
-        }
+        endMessage={<Alert>All items loaded!</Alert>}
       >
         <div className="justify-center flex">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20 p-5">

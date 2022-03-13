@@ -3,10 +3,11 @@ import { useContextState } from 'contexts/GlobalContext';
 import useDispatchGlobalContext from 'hooks/useDispatchGlobalContext';
 import React, { useMemo } from 'react';
 import { CharacterStatus } from 'utils/constants';
+import { getKeyNameEnumByValue } from 'utils/helpers';
 
-interface StatusFilterProps {}
+interface CharacterStatusFiltersProps {}
 
-const StatusFilter: React.FC<StatusFilterProps> = (props) => {
+const CharacterStatusFilters: React.FC<CharacterStatusFiltersProps> = (props) => {
   const { dispatchCharacterStatus } = useDispatchGlobalContext();
   const { stateContext } = useContextState();
 
@@ -21,25 +22,25 @@ const StatusFilter: React.FC<StatusFilterProps> = (props) => {
     <div className="flex">
       <span className="mr-2">Character status: </span>
       <RadioButton
-        label={'ANY'}
+        label={getKeyNameEnumByValue(CharacterStatus, CharacterStatus.ANY)}
         option={CharacterStatus.ANY}
         handleChangeRadioButton={handleChangeRadioButton}
         value={character}
       />
       <RadioButton
-        label={'ALIVE'}
+        label={getKeyNameEnumByValue(CharacterStatus, CharacterStatus.ALIVE)}
         option={CharacterStatus.ALIVE}
         handleChangeRadioButton={handleChangeRadioButton}
         value={character}
       />
       <RadioButton
-        label={'DEAD'}
+        label={getKeyNameEnumByValue(CharacterStatus, CharacterStatus.DEAD)}
         option={CharacterStatus.DEAD}
         handleChangeRadioButton={handleChangeRadioButton}
         value={character}
       />
       <RadioButton
-        label={'UNKNOWN'}
+        label={getKeyNameEnumByValue(CharacterStatus, CharacterStatus.UNKNOWN)}
         option={CharacterStatus.UNKNOWN}
         handleChangeRadioButton={handleChangeRadioButton}
         value={character}
@@ -48,4 +49,4 @@ const StatusFilter: React.FC<StatusFilterProps> = (props) => {
   );
 };
 
-export default StatusFilter;
+export default CharacterStatusFilters;

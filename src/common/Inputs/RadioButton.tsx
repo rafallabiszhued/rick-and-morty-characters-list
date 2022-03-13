@@ -1,7 +1,8 @@
 import React from 'react';
+import { capitalizeFirstLetter } from 'utils/helpers';
 
 interface RadioButtonProps {
-  label: string;
+  label: string | undefined;
   option: string;
   handleChangeRadioButton: (event: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
@@ -9,6 +10,14 @@ interface RadioButtonProps {
 
 const RadioButton: React.FC<RadioButtonProps> = ({ option, label, value, handleChangeRadioButton }) => {
   const id = `${label}-${option}`;
+
+  const renderLabel = (label: string | undefined) => {
+    if (label) {
+      const convertToLowerLetters = label.toLowerCase();
+      const convertLabel = capitalizeFirstLetter(convertToLowerLetters);
+      return convertLabel;
+    }
+  };
   return (
     <div className="form-check form-check-inline flex items-center">
       <input
@@ -21,7 +30,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({ option, label, value, handleC
         checked={option === value}
       />
       <label className="form-check-label inline-block text-gray-800" htmlFor={id}>
-        {label}
+        {renderLabel(label)}
       </label>
     </div>
   );
