@@ -1,4 +1,5 @@
 import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
+import Card from 'components/Home/components/Card';
 import { ICharacter } from 'components/Home/models/home.models';
 import homeService from 'components/Home/services/home.service';
 import MainLayout from 'layouts/MainLayout';
@@ -47,22 +48,15 @@ const Home: React.FC<HomeProps> = () => {
         hasMore={hasMore}
         loader={<LoadingIndicator isLoading />}
         endMessage={
-          <p style={{ textAlign: 'center' }}>
+          <p className="text-center">
             <b>All items loaded!</b>
           </p>
         }
       >
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="justify-center flex">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20 p-5">
             {fetchCharacters?.map((character) => (
-              <div className="flex justify-center" key={character.id}>
-                <div className="rounded-lg shadow-lg bg-white max-w-sm">
-                  <img className="rounded-t-lg" src={character.image} alt={character.name} />
-                  <div className="p-6">
-                    <h5 className="text-gray-900 text-xl font-bold mb-2">{character.name}</h5>
-                  </div>
-                </div>
-              </div>
+              <Card character={character} />
             ))}
           </div>
         </div>
