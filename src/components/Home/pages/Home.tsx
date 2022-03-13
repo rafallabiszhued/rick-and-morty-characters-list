@@ -36,14 +36,21 @@ const Home: React.FC<HomeProps> = () => {
     },
   );
 
-  const handleFetchCharacters = useCallback((results: ICharacter[]) => {
-    setFetchCharacters(prevFetchCharacters => prevFetchCharacters?.concat(results));
-  }, []);
+  const handleFetchCharacters = useCallback(
+    (results: ICharacter[]) => {
+      if (page === defaultPage) {
+        return setFetchCharacters(results);
+      }
+      setFetchCharacters(prevFetchCharacters => prevFetchCharacters?.concat(results));
+    },
+    [page],
+  );
 
   //reset if active filters
   const resetFetchCharacters = useCallback(() => {
     setFetchCharacters([]);
     setPage(defaultPage);
+    setHasMore(true);
   }, []);
 
   const fetchMoreData = useCallback(() => {
@@ -57,12 +64,12 @@ const Home: React.FC<HomeProps> = () => {
     }
   }, [characters, fetchCharacters?.length]);
 
-  //reset state if active filter search
+  //reset state if change filter search
   useEffect(() => {
-    if (searchName) {
-      resetFetchCharacters();
-    }
+    resetFetchCharacters();
   }, [resetFetchCharacters, searchName]);
+
+  console.log(fetchCharacters, page, searchName, hasMore);
 
   return (
     <MainLayout>
@@ -81,8 +88,8 @@ const Home: React.FC<HomeProps> = () => {
       >
         <div className="justify-center flex">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20 p-5">
-            {fetchCharacters?.map(character => (
-              <Card character={character} key={character.id} />
+            {fetchCharacters?.map((character, index) => (
+              <Card character={character} key={index} />
             ))}
           </div>
         </div>

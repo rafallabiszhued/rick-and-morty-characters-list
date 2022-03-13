@@ -2,6 +2,7 @@ import React from 'react';
 import { useContextState } from 'contexts/GlobalContext';
 import useDispatchGlobalContext from 'hooks/useDispatchGlobalContext';
 import { DebounceInput } from 'react-debounce-input';
+import { ScrollToTop } from 'utils/helpers';
 
 interface InputSearchProps {}
 
@@ -10,6 +11,10 @@ const InputSearch: React.FC<InputSearchProps> = props => {
   const { dispatchSearch } = useDispatchGlobalContext();
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+    const isSearch = !!value;
+    if (!isSearch) {
+      ScrollToTop();
+    }
     dispatchSearch(value);
   };
 
