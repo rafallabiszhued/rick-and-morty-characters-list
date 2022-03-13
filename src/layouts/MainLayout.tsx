@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 
 const Container = styled.main`
   min-height: calc(100vh - 56px);
-  background-color: #eff0f5;
+  background-color: #eff0f5; //TODO background color to global style
 `;
 
 interface MainLayoutProps {}

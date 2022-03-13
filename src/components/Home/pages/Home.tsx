@@ -1,10 +1,11 @@
+import ErrorAlert from 'common/ErrorAlert/ErrorAlert';
 import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
 import Card from 'components/Home/components/Card';
 import { ICharacter } from 'components/Home/models/home.models';
 import homeService from 'components/Home/services/home.service';
 import { useContextState } from 'contexts/GlobalContext';
 import MainLayout from 'layouts/MainLayout';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useQuery } from 'react-query';
 import { IGenericResponse } from 'utils/commonModels';
@@ -12,27 +13,36 @@ import { IGenericResponse } from 'utils/commonModels';
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const [page, setPage] = useState(1);
+  const defaultPage = 1;
+  const [page, setPage] = useState(defaultPage);
   const [hasMore, setHasMore] = useState(true);
   const [fetchCharacters, setFetchCharacters] = useState<ICharacter[]>([]);
   const { stateContext } = useContextState();
 
-  console.log(stateContext.search, 'searchHOME');
+  const searchName = useMemo(() => stateContext.search, [stateContext.search]);
 
-  console.log(fetchCharacters, 'fetchChar');
-
-  const { data: characters } = useQuery<IGenericResponse<ICharacter>>(
-    ['characters', page],
-    () => homeService.getCharactersList(page),
+  const { data: characters, isError, error } = useQuery<IGenericResponse<ICharacter>, Error>(
+    ['characters', page, searchName],
+    () => homeService.getCharactersList(page, searchName),
     {
-      onSuccess: response => {
-        handleFetchCharacters(response.results);
+      onSuccess: ({ results }) => {
+        handleFetchCharacters(results);
+      },
+      onError: () => {
+        //if not found elements, for example by search, api should response empty results in status 200 and alert show not found results. Now is error 404.
+        resetFetchCharacters();
       },
     },
   );
 
   const handleFetchCharacters = useCallback((results: ICharacter[]) => {
     setFetchCharacters(prevFetchCharacters => prevFetchCharacters?.concat(results));
+  }, []);
+
+  //reset if active filters
+  const resetFetchCharacters = useCallback(() => {
+    setFetchCharacters([]);
+    setPage(defaultPage);
   }, []);
 
   const fetchMoreData = useCallback(() => {
@@ -46,13 +56,21 @@ const Home: React.FC<HomeProps> = () => {
     }
   }, [characters, fetchCharacters?.length]);
 
+  //reset state if active filter search
+  useEffect(() => {
+    if (searchName) {
+      resetFetchCharacters();
+    }
+  }, [resetFetchCharacters, searchName]);
+
   return (
     <MainLayout>
+      <ErrorAlert error={error} isError={isError} />
       <InfiniteScroll
         dataLength={fetchCharacters.length}
         next={fetchMoreData}
         hasMore={hasMore}
-        loader={<LoadingIndicator isLoading />}
+        loader={<LoadingIndicator isLoading={!isError} />}
         endMessage={
           <p className="text-center">
             <b>All items loaded!</b>

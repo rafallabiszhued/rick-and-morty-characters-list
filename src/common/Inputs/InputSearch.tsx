@@ -1,6 +1,6 @@
+import React from 'react';
 import { useContextState } from 'contexts/GlobalContext';
 import useDispatchGlobalContext from 'hooks/useDispatchGlobalContext';
-import React, { useState } from 'react';
 import { DebounceInput } from 'react-debounce-input';
 
 interface InputSearchProps {}
@@ -8,11 +8,9 @@ interface InputSearchProps {}
 const InputSearch: React.FC<InputSearchProps> = props => {
   const { stateContext } = useContextState();
   const { dispatchSearch } = useDispatchGlobalContext();
-  // const [value, setValue] = useState('');
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     dispatchSearch(value);
-    // setValue(value);
   };
 
   return (
