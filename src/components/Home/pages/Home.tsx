@@ -73,8 +73,8 @@ const Home: React.FC<HomeProps> = () => {
 
   return (
     <MainLayout>
-      <ErrorAlert error={error} isError={isError} />
       <StatusFilter />
+      <ErrorAlert error={error} isError={isError} />
       <InfiniteScroll
         dataLength={fetchCharacters.length}
         next={fetchMoreData}

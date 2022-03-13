@@ -1,8 +1,10 @@
 import React from 'react';
 
-interface HamburgerProps {}
+interface HamburgerProps {
+  toggleShow: () => void;
+}
 
-const Hamburger: React.FC<HamburgerProps> = (props) => {
+const Hamburger: React.FC<HamburgerProps> = ({ toggleShow }) => {
   return (
     <button
       className="
@@ -21,6 +23,7 @@ const Hamburger: React.FC<HamburgerProps> = (props) => {
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
       aria-label="Toggle navigation"
+      onClick={toggleShow}
     >
       <svg
         aria-hidden="true"
