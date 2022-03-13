@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 const Container = styled.main`
-  min-height: calc(100vh - 44.5px);
+  min-height: calc(100vh - 56px);
   background-color: #eff0f5;
 `;
 

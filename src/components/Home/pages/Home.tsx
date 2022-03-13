@@ -2,8 +2,9 @@ import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
 import Card from 'components/Home/components/Card';
 import { ICharacter } from 'components/Home/models/home.models';
 import homeService from 'components/Home/services/home.service';
+import { useContextState } from 'contexts/GlobalContext';
 import MainLayout from 'layouts/MainLayout';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useQuery } from 'react-query';
 import { IGenericResponse } from 'utils/commonModels';
@@ -14,31 +15,36 @@ const Home: React.FC<HomeProps> = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [fetchCharacters, setFetchCharacters] = useState<ICharacter[]>([]);
+  const { stateContext } = useContextState();
+
+  console.log(stateContext.search, 'searchHOME');
+
+  console.log(fetchCharacters, 'fetchChar');
 
   const { data: characters } = useQuery<IGenericResponse<ICharacter>>(
     ['characters', page],
     () => homeService.getCharactersList(page),
     {
-      onSuccess: (response) => {
+      onSuccess: response => {
         handleFetchCharacters(response.results);
       },
     },
   );
 
-  const handleFetchCharacters = (results: ICharacter[]) => {
-    setFetchCharacters((prevFetchCharacters) => prevFetchCharacters?.concat(results));
-  };
+  const handleFetchCharacters = useCallback((results: ICharacter[]) => {
+    setFetchCharacters(prevFetchCharacters => prevFetchCharacters?.concat(results));
+  }, []);
 
-  const fetchMoreData = () => {
+  const fetchMoreData = useCallback(() => {
     if (characters) {
       const totalCountItem = characters?.info?.count;
       if (fetchCharacters?.length >= totalCountItem) {
         setHasMore(false);
         return;
       }
-      setPage((prevPage) => prevPage + 1);
+      setPage(prevPage => prevPage + 1);
     }
-  };
+  }, [characters, fetchCharacters?.length]);
 
   return (
     <MainLayout>
@@ -55,8 +61,8 @@ const Home: React.FC<HomeProps> = () => {
       >
         <div className="justify-center flex">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-20 p-5">
-            {fetchCharacters?.map((character) => (
-              <Card character={character} />
+            {fetchCharacters?.map(character => (
+              <Card character={character} key={character.id} />
             ))}
           </div>
         </div>

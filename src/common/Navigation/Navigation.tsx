@@ -26,7 +26,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
       <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
         <Hamburger />
         <div className="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent">
-          <ul className="navbar-nav flex flex-col pl-0 list-style-none mr-auto w-full justify-between">
+          <ul className="navbar-nav flex flex-col pl-0 list-style-none mr-auto w-full justify-between items-center">
             <li className="nav-item px-2">
               <Link to={routes.home} className="nav-link active" aria-current="page">
                 Home

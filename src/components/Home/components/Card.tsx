@@ -1,5 +1,5 @@
 import { ICharacter } from 'components/Home/models/home.models';
-import React from 'react';
+import React, { memo } from 'react';
 
 interface CardProps {
   character: ICharacter;
@@ -7,7 +7,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ character }) => {
   return (
-    <div className="flex justify-center" key={character.id}>
+    <div className="flex justify-center">
       <div className="rounded-lg shadow-lg bg-white max-w-sm">
         <img className="rounded-t-lg" src={character.image} alt={character.name} />
         <div className="p-6">
@@ -18,4 +18,4 @@ const Card: React.FC<CardProps> = ({ character }) => {
   );
 };
 
-export default Card;
+export default memo(Card);
