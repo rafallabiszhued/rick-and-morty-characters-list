@@ -13,6 +13,12 @@ const Menu = styled.div<MenuProps>`
   display: ${({ isShow }) => (isShow ? `visible` : `none`)};
 `;
 
+const MenuList = styled.ul`
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0rem 2rem;
+`;
+
 interface NavigationProps {}
 
 const Navigation: React.FC<NavigationProps> = (props) => {
@@ -44,7 +50,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
       <div className="container-fluid w-full flex flex-wrap items-center justify-between px-6">
         <Hamburger toggleShow={toggleShow} />
         <Menu className="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent" isShow={show}>
-          <ul className="navbar-nav flex flex-col pl-0 list-style-none mr-auto w-full justify-between items-center">
+          <MenuList className="navbar-nav flex flex-col pl-0 list-style-none mr-auto w-full justify-between items-center">
             <li className="nav-item px-2">
               <Link to={routes.home} className="nav-link active" aria-current="page">
                 Home
@@ -53,7 +59,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
             <li className="nav-item px-2">
               <InputSearch />
             </li>
-          </ul>
+          </MenuList>
         </Menu>
       </div>
     </nav>

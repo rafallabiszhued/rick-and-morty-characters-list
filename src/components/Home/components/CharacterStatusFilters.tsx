@@ -2,8 +2,16 @@ import RadioButton from 'common/Inputs/RadioButton';
 import { useContextState } from 'contexts/GlobalContext';
 import useDispatchGlobalContext from 'hooks/useDispatchGlobalContext';
 import React, { useMemo } from 'react';
+import styled from 'styled-components/macro';
 import { CharacterStatus } from 'utils/constants';
 import { getKeyNameEnumByValue } from 'utils/helpers';
+
+const CharacterStatusFilterContainer = styled.div`
+  display: flex;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+`;
 
 interface CharacterStatusFiltersProps {}
 
@@ -19,7 +27,7 @@ const CharacterStatusFilters: React.FC<CharacterStatusFiltersProps> = (props) =>
   };
 
   return (
-    <div className="flex">
+    <CharacterStatusFilterContainer>
       <span className="mr-2">Character status: </span>
       <RadioButton
         label={getKeyNameEnumByValue(CharacterStatus, CharacterStatus.ANY)}
@@ -45,7 +53,7 @@ const CharacterStatusFilters: React.FC<CharacterStatusFiltersProps> = (props) =>
         handleChangeRadioButton={handleChangeRadioButton}
         value={character}
       />
-    </div>
+    </CharacterStatusFilterContainer>
   );
 };
 
