@@ -10,7 +10,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
   return (
     <nav
       className="
-    relative
+    fixed
     w-full
     flex flex-wrap
     items-center

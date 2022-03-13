@@ -1,6 +1,7 @@
 import ErrorAlert from 'common/ErrorAlert/ErrorAlert';
 import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
 import Card from 'components/Home/components/Card';
+import StatusFilter from 'components/Home/components/StatusFilter';
 import { ICharacter } from 'components/Home/models/home.models';
 import homeService from 'components/Home/services/home.service';
 import { useContextState } from 'contexts/GlobalContext';
@@ -66,6 +67,7 @@ const Home: React.FC<HomeProps> = () => {
   return (
     <MainLayout>
       <ErrorAlert error={error} isError={isError} />
+      <StatusFilter />
       <InfiniteScroll
         dataLength={fetchCharacters.length}
         next={fetchMoreData}
