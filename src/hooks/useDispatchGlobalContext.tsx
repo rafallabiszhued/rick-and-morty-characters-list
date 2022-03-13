@@ -11,8 +11,16 @@ const useDispatchGlobalContext = () => {
     });
   };
 
+  const dispatchCharacterStatus = (value: string) => {
+    dispatch({
+      type: ActionTypes.STATE,
+      payload: { ...stateContext, characterStatus: value },
+    });
+  };
+
   return {
     dispatchSearch,
+    dispatchCharacterStatus,
   };
 };
 

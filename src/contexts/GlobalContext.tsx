@@ -3,11 +3,13 @@ import React from 'react';
 //defaultStateContext
 export const defaultStateContext = {
   search: '',
+  characterStatus: '',
 } as IStateContext;
 
 //interfaces
 export type IStateContext = {
   search: string;
+  characterStatus: string;
 };
 
 //constants

@@ -21,10 +21,11 @@ const Home: React.FC<HomeProps> = () => {
   const { stateContext } = useContextState();
 
   const searchName = useMemo(() => stateContext.search, [stateContext.search]);
+  const characterStatus = useMemo(() => stateContext.characterStatus, [stateContext.characterStatus]);
 
   const { data: characters, isError, error } = useQuery<IGenericResponse<ICharacter>, Error>(
-    ['characters', page, searchName],
-    () => homeService.getCharactersList(page, searchName),
+    ['characters', page, searchName, characterStatus],
+    () => homeService.getCharactersList(page, searchName, characterStatus),
     {
       onSuccess: ({ results }) => {
         handleFetchCharacters(results);
@@ -67,9 +68,7 @@ const Home: React.FC<HomeProps> = () => {
   //reset state if change filter search
   useEffect(() => {
     resetFetchCharacters();
-  }, [resetFetchCharacters, searchName]);
-
-  console.log(fetchCharacters, page, searchName, hasMore);
+  }, [resetFetchCharacters, searchName, characterStatus]);
 
   return (
     <MainLayout>
