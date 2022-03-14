@@ -16,11 +16,19 @@ const Container = styled.main`
   background-color: #eff0f5; //TODO background color to global style
 `;
 
+const HeaderFixed = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 56px;
+  background-color: #fff;
+`;
+
 interface MainLayoutProps {}
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <>
+      <HeaderFixed />
       <Header>
         <Navigation />
       </Header>

@@ -25,8 +25,9 @@ const Navigation: React.FC<NavigationProps> = (props) => {
 
   const toggleShow = () => setShow((prev) => !prev);
 
+  const closeMenu = () => setShow(false);
   //close mobile menu if click outside nav
-  useOnClickOutside(ref, () => toggleShow());
+  useOnClickOutside(ref, () => closeMenu());
 
   return (
     <nav
@@ -42,6 +43,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
     hover:text-gray-700
     focus:text-gray-700
     navbar navbar-expand-lg navbar-light
+    z-10
     "
       ref={ref}
     >
