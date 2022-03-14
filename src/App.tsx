@@ -1,4 +1,4 @@
-import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
+import LoadingIndicator from 'common/LoadingIndicator';
 import { queryClient } from 'config/services';
 import { GlobalContextProvider } from 'contexts/GlobalContext';
 import React, { lazy, Suspense } from 'react';

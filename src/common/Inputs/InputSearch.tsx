@@ -9,7 +9,8 @@ interface InputSearchProps {}
 const InputSearch: React.FC<InputSearchProps> = props => {
   const { stateContext } = useContextState();
   const { dispatchSearch } = useDispatchGlobalContext();
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     const isSearch = !!value;
     if (!isSearch) {

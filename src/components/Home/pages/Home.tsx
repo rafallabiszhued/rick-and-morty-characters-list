@@ -1,6 +1,6 @@
 import Alert from 'common/Alert';
-import ErrorAlert from 'common/ErrorAlert/ErrorAlert';
-import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
+import ErrorAlert from 'common/ErrorAlert';
+import LoadingIndicator from 'common/LoadingIndicator';
 import Card from 'components/Home/components/Card';
 import CharacterStatusFilters from 'components/Home/components/CharacterStatusFilters';
 import { getTotalCountItem } from 'components/Home/functions/funtions';
