@@ -28,8 +28,8 @@ const Home: React.FC<HomeProps> = () => {
     ['characters', page, searchName, characterStatus],
     () => homeService.getCharactersList(page, searchName, characterStatus),
     {
-      onSuccess: ({ results }) => {
-        handleFetchCharacters(results);
+      onSuccess: response => {
+        handleFetchCharacters(response);
       },
       onError: () => {
         //if not found elements, for example by search, api should response empty results in status 200 and alert show not found results. Now is error 404.
@@ -38,14 +38,26 @@ const Home: React.FC<HomeProps> = () => {
     },
   );
 
+  const handleHasMore = useCallback((characters: IGenericResponse<ICharacter>, fetchCharacters: ICharacter[]) => {
+    if (characters) {
+      const totalCountItem = characters?.info?.count;
+      if (fetchCharacters?.length >= totalCountItem) {
+        setHasMore(false);
+        return;
+      }
+    }
+  }, []);
+
   const handleFetchCharacters = useCallback(
-    (results: ICharacter[]) => {
+    (characters: IGenericResponse<ICharacter>) => {
+      const results = characters.results;
+      handleHasMore(characters, results);
       if (page === defaultPage) {
         return setFetchCharacters(results);
       }
       setFetchCharacters(prevFetchCharacters => prevFetchCharacters?.concat(results));
     },
-    [page],
+    [handleHasMore, page],
   );
 
   //reset if active filters
@@ -57,14 +69,10 @@ const Home: React.FC<HomeProps> = () => {
 
   const fetchMoreData = useCallback(() => {
     if (characters) {
-      const totalCountItem = characters?.info?.count;
-      if (fetchCharacters?.length >= totalCountItem) {
-        setHasMore(false);
-        return;
-      }
+      handleHasMore(characters, fetchCharacters);
       setPage(prevPage => prevPage + 1);
     }
-  }, [characters, fetchCharacters?.length]);
+  }, [characters, fetchCharacters, handleHasMore]);
 
   //reset state if change filter search
   useEffect(() => {

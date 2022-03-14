@@ -3,8 +3,6 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 const Header = styled.header`
-  display: flex;
-  align-items: center;
   height: 56px;
   max-width: 1150px;
   margin: 0 auto;

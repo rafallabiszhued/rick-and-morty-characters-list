@@ -6,10 +6,10 @@ import { Link } from 'react-router-dom';
 import routes from 'routes';
 import styled from 'styled-components/macro';
 
-type MenuProps = {
+type StateProps = {
   isShow: boolean;
 };
-const Menu = styled.div<MenuProps>`
+const Menu = styled.div<StateProps>`
   display: ${({ isShow }) => (isShow ? `visible` : `none`)};
 `;
 
