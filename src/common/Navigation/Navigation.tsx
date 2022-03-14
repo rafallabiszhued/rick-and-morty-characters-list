@@ -15,8 +15,6 @@ const Menu = styled.div<MenuProps>`
 
 const MenuList = styled.ul`
   max-width: 1150px;
-  margin: 0 auto;
-  padding: 0rem 2rem;
 `;
 
 interface NavigationProps {}
@@ -51,7 +49,7 @@ const Navigation: React.FC<NavigationProps> = (props) => {
         <Hamburger toggleShow={toggleShow} />
         <Menu className="collapse navbar-collapse flex-grow items-center" id="navbarSupportedContent" isShow={show}>
           <MenuList className="navbar-nav flex flex-col pl-0 list-style-none mr-auto w-full justify-between items-center">
-            <li className="nav-item px-2">
+            <li className="nav-item pr-2">
               <Link to={routes.home} className="nav-link active" aria-current="page">
                 Home
               </Link>

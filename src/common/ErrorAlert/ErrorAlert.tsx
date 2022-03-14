@@ -16,7 +16,7 @@ const ErrorAlert: React.FC<ErrorAlertProps> = ({ isError, error }) => {
     <>
       {isError && (
         <div
-          className="bg-red-100 rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full"
+          className="bg-red-100 rounded-lg py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full text-center text-2xl"
           role="alert"
         >
           <svg
