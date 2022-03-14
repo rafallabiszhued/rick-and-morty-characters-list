@@ -3,6 +3,7 @@ import ErrorAlert from 'common/ErrorAlert/ErrorAlert';
 import LoadingIndicator from 'common/LoadingIndicator/LoadingIndicator';
 import Card from 'components/Home/components/Card';
 import CharacterStatusFilters from 'components/Home/components/CharacterStatusFilters';
+import { getTotalCountItem } from 'components/Home/functions/funtions';
 import { ICharacter } from 'components/Home/models/home.models';
 import homeService from 'components/Home/services/home.service';
 import { useContextState } from 'contexts/GlobalContext';
@@ -40,7 +41,7 @@ const Home: React.FC<HomeProps> = () => {
 
   const handleHasMore = useCallback((characters: IGenericResponse<ICharacter>, fetchCharacters: ICharacter[]) => {
     if (characters) {
-      const totalCountItem = characters?.info?.count;
+      const totalCountItem = getTotalCountItem(characters);
       if (fetchCharacters?.length >= totalCountItem) {
         setHasMore(false);
         return;
@@ -70,7 +71,10 @@ const Home: React.FC<HomeProps> = () => {
   const fetchMoreData = useCallback(() => {
     if (characters) {
       handleHasMore(characters, fetchCharacters);
-      setPage(prevPage => prevPage + 1);
+      const totalCountItem = getTotalCountItem(characters);
+      if (fetchCharacters?.length < totalCountItem) {
+        setPage(prevPage => prevPage + 1);
+      }
     }
   }, [characters, fetchCharacters, handleHasMore]);
 
