@@ -6,16 +6,13 @@ import { ScrollToTop } from 'utils/helpers';
 
 interface InputSearchProps {}
 
-const InputSearch: React.FC<InputSearchProps> = props => {
+const InputSearch: React.FC<InputSearchProps> = () => {
   const { stateContext } = useContextState();
   const { dispatchSearch } = useDispatchGlobalContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    const isSearch = !!value;
-    if (!isSearch) {
-      ScrollToTop();
-    }
+    ScrollToTop();
     dispatchSearch(value);
   };
 

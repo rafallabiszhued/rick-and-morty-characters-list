@@ -6,7 +6,8 @@ import CharacterStatusFilters from 'components/Home/components/CharacterStatusFi
 import { getTotalCountItem } from 'components/Home/functions/funtions';
 import { ICharacter } from 'components/Home/models/home.models';
 import homeService from 'components/Home/services/home.service';
-import { useContextState } from 'contexts/GlobalContext';
+import { defaultStateContext, useContextState } from 'contexts/GlobalContext';
+import useDispatchGlobalContext from 'hooks/useDispatchGlobalContext';
 import MainLayout from 'layouts/MainLayout';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -16,20 +17,25 @@ import { IGenericResponse } from 'utils/commonModels';
 interface HomeProps {}
 
 const Home: React.FC<HomeProps> = () => {
-  const defaultPage = 1;
-  const [page, setPage] = useState(defaultPage);
+  const defaultPage = defaultStateContext.page;
   const [hasMore, setHasMore] = useState(true);
   const [fetchCharacters, setFetchCharacters] = useState<ICharacter[]>([]);
   const { stateContext } = useContextState();
+  const { dispatchPage } = useDispatchGlobalContext();
 
   const searchName = useMemo(() => stateContext.search, [stateContext.search]);
   const characterStatus = useMemo(() => stateContext.characterStatus, [stateContext.characterStatus]);
+  const page = useMemo(() => stateContext.page, [stateContext.page]);
 
-  const { data: characters, isError, error } = useQuery<IGenericResponse<ICharacter>, Error>(
+  const {
+    data: characters,
+    isError,
+    error,
+  } = useQuery<IGenericResponse<ICharacter>, Error>(
     ['characters', page, searchName, characterStatus],
     () => homeService.getCharactersList(page, searchName, characterStatus),
     {
-      onSuccess: response => {
+      onSuccess: (response) => {
         handleFetchCharacters(response);
       },
       onError: () => {
@@ -56,32 +62,29 @@ const Home: React.FC<HomeProps> = () => {
       if (page === defaultPage) {
         return setFetchCharacters(results);
       }
-      setFetchCharacters(prevFetchCharacters => prevFetchCharacters?.concat(results));
+      setFetchCharacters((prevFetchCharacters) => prevFetchCharacters?.concat(results));
     },
-    [handleHasMore, page],
+    [defaultPage, handleHasMore, page],
   );
-
-  //reset if active filters
-  const resetFetchCharacters = useCallback(() => {
-    setFetchCharacters([]);
-    setPage(defaultPage);
-    setHasMore(true);
-  }, []);
 
   const fetchMoreData = useCallback(() => {
     if (characters) {
       handleHasMore(characters, fetchCharacters);
       const totalCountItem = getTotalCountItem(characters);
       if (fetchCharacters?.length < totalCountItem) {
-        setPage(prevPage => prevPage + 1);
+        dispatchPage(page + 1);
       }
     }
-  }, [characters, fetchCharacters, handleHasMore]);
+  }, [characters, fetchCharacters, handleHasMore, page]);
 
-  //reset state if change filter search
+  const resetFetchCharacters = useCallback(() => {
+    setFetchCharacters([]);
+  }, []);
+
+  // reset parameter has more if change filters
   useEffect(() => {
-    resetFetchCharacters();
-  }, [resetFetchCharacters, searchName, characterStatus]);
+    setHasMore(true);
+  }, [searchName, characterStatus]);
 
   return (
     <MainLayout>

@@ -4,12 +4,14 @@ import React from 'react';
 export const defaultStateContext = {
   search: '',
   characterStatus: '',
+  page: 1,
 } as IStateContext;
 
 //interfaces
 export type IStateContext = {
   search: string;
   characterStatus: string;
+  page: number;
 };
 
 //constants
