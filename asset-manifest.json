@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/rick-and-morty-characters-list/static/css/main.6c8eeb75.css",
-    "main.js": "/rick-and-morty-characters-list/static/js/main.93de3d10.js",
-    "static/js/277.2aa64136.chunk.js": "/rick-and-morty-characters-list/static/js/277.2aa64136.chunk.js",
-    "static/js/281.f12092e4.chunk.js": "/rick-and-morty-characters-list/static/js/281.f12092e4.chunk.js",
+    "main.js": "/rick-and-morty-characters-list/static/js/main.e1e30d26.js",
+    "static/js/277.1e5f25fe.chunk.js": "/rick-and-morty-characters-list/static/js/277.1e5f25fe.chunk.js",
+    "static/js/281.94b137bc.chunk.js": "/rick-and-morty-characters-list/static/js/281.94b137bc.chunk.js",
     "static/js/787.ab4dbd02.chunk.js": "/rick-and-morty-characters-list/static/js/787.ab4dbd02.chunk.js",
     "static/js/628.bebaefbd.chunk.js": "/rick-and-morty-characters-list/static/js/628.bebaefbd.chunk.js",
     "index.html": "/rick-and-morty-characters-list/index.html",
     "static/media/loading.svg": "/rick-and-morty-characters-list/static/media/loading.0247f2b5124032a3d71766f394683c78.svg",
     "main.6c8eeb75.css.map": "/rick-and-morty-characters-list/static/css/main.6c8eeb75.css.map",
-    "main.93de3d10.js.map": "/rick-and-morty-characters-list/static/js/main.93de3d10.js.map",
-    "277.2aa64136.chunk.js.map": "/rick-and-morty-characters-list/static/js/277.2aa64136.chunk.js.map",
-    "281.f12092e4.chunk.js.map": "/rick-and-morty-characters-list/static/js/281.f12092e4.chunk.js.map",
+    "main.e1e30d26.js.map": "/rick-and-morty-characters-list/static/js/main.e1e30d26.js.map",
+    "277.1e5f25fe.chunk.js.map": "/rick-and-morty-characters-list/static/js/277.1e5f25fe.chunk.js.map",
+    "281.94b137bc.chunk.js.map": "/rick-and-morty-characters-list/static/js/281.94b137bc.chunk.js.map",
     "787.ab4dbd02.chunk.js.map": "/rick-and-morty-characters-list/static/js/787.ab4dbd02.chunk.js.map",
     "628.bebaefbd.chunk.js.map": "/rick-and-morty-characters-list/static/js/628.bebaefbd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6c8eeb75.css",
-    "static/js/main.93de3d10.js"
+    "static/js/main.e1e30d26.js"
   ]
 }
